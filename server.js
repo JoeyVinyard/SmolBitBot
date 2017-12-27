@@ -15,7 +15,7 @@ var options = {
 		username: config.username,
 		password: config.oAuth
 	},
-	channels: [settings.channel]
+	channels: []
 }
 
 var client = new tmi.client(options);
@@ -31,7 +31,19 @@ client.connect();
 console.log("Done");
 
 client.on("connected", function(address, port){
-	// client.say("nanopierogi", "I am here! Ping me!");
+	console.log("Successfully conntected to Twitch IRC");
+	db.fetchChannels().then((channels) => {
+		channels.forEach((ch) => {
+			client.join(ch.key);
+		});
+	}).catch((err) => {
+		console.log("Unable to fetch channels", err);
+	})
+	db.fetchAllCommands().then((cmds) => {
+		commands = cmds.val();
+	}).catch((err) => {
+		console.log("~Error~", err);
+	});
 })
 client.on("chat", function(channel, user, message, self){
 	if(self)//Ignore if the bot sent this message
@@ -56,6 +68,8 @@ function parseMessage(channel, user, message){
 		args.splice(0,1);
 		switch(command){
 			case "permit":
+				if(!user.isMod)
+					return;
 				var username = args[0];
 				allowedLinkPosters[channel] = {};
 				allowedLinkPosters[channel][username] = true; //Add user to hashset
@@ -66,6 +80,9 @@ function parseMessage(channel, user, message){
 				var arg = args[0];
 				args.splice(0,1);
 				switch(arg){
+					case undefined:
+						console.log("list");
+						break;
 					case "add":
 						addCommand(args, channel);
 					break;
