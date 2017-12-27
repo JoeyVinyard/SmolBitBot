@@ -20,6 +20,7 @@ var options = {
 
 var client = new tmi.client(options);
 var allowedLinkPosters = {}; //HashSet for permitted link posters
+var commands = {};
 
 console.log("Initializing firebase...");
 db.init(config.fbConfig);
@@ -40,12 +41,12 @@ client.on("chat", function(channel, user, message, self){
 
 function parseMessage(channel, user, message){
 	if(message.length > settings.maxChatSize){
-		chat("If I had mod, I would so delete that long ass message");
+		chat(channel, "If I had mod, I would so delete that long ass message");
 		//Purge user
 		return;
 	}
-	if(settings.isLink.test(message) && !allowedLinkPosters[user.username]){
-		chat(user["display-name"] + ", you are not allowed to post links without permission!");
+	if(settings.isLink.test(message) && !allowedLinkPosters[channel][user.username]){
+		chat(channel, user["display-name"] + ", you are not allowed to post links without permission!");
 		//Purge user
 		return;
 	}
@@ -54,14 +55,12 @@ function parseMessage(channel, user, message){
 		var command = args[0];
 		args.splice(0,1);
 		switch(command){
-			case "ping":
-				client.say(settings.channel, "pong");
-				break;
 			case "permit":
 				var username = args[0];
-				allowedLinkPosters[username] = true; //Add user to hashset
-				chat(username + " is now permitted to post a link for " + settings.permitLinkTimeout + " seconds");
-				setTimeout(removeFromPermitList, settings.getLinkTimeout(), username); //Remove user from allowed posting list after timeout
+				allowedLinkPosters[channel] = {};
+				allowedLinkPosters[channel][username] = true; //Add user to hashset
+				chat(channel, username + " is now permitted to post a link for " + settings.permitLinkTimeout + " seconds");
+				setTimeout(removeFromPermitList, settings.getLinkTimeout(), username, channel); //Remove user from allowed posting list after timeout
 				break;
 			case "command":
 				var arg = args[0];
@@ -105,9 +104,9 @@ function addCommand(args, channel){
 	args.splice(0,1);
 	var response = args.join(" ");
 	db.addCommand(channel.substring(1), command, response, cooldown, userlevel).then(function(){
-		chat("Command: '" + command + "' successfully added!");
+		chat(channel, "Command: '" + command + "' successfully added!");
 	}).catch(function(){
-		chat("Error adding command");
+		chat(channel, "Error adding command");
 	})
 }
 
@@ -115,11 +114,12 @@ function flagToValue(flag){
 	return flag.substring(flag.indexOf('=')+1);
 }
 
-function chat(message){
-	client.say(settings.channel, message);
+function chat(channel, message){
+	client.say(channel, message);
 }
 
-function removeFromPermitList(username){
+function removeFromPermitList(username, channel){
+	console.log(allowedLinkPosters);
 	console.log(username, "is no longer permitted to post links");
-	delete allowedLinkPosters[username];
+	delete allowedLinkPosters[channel][username];
 }
