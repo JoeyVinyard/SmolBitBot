@@ -9,6 +9,7 @@
   "author": "Joey Vinyard",
   "license": "ISC",
   "dependencies": {
+    "firebase": "^4.8.1",
     "tmi.js": "^1.2.1"
   }
 }

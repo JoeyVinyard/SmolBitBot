@@ -1,4 +1,6 @@
 var tmi = require("tmi.js");
+
+var db = require("./db");
 var config = require("./config");
 var settings = require("./settings");
 
@@ -17,9 +19,15 @@ var options = {
 }
 
 var client = new tmi.client(options);
-client.connect();
-
 var allowedLinkPosters = {}; //HashSet for permitted link posters
+
+console.log("Initializing firebase...");
+db.init(config.fbConfig);
+console.log("Done");
+
+console.log("Initializing TMI...");
+client.connect();
+console.log("Done");
 
 client.on("connected", function(address, port){
 	// client.say("nanopierogi", "I am here! Ping me!");
@@ -33,24 +41,78 @@ client.on("chat", function(channel, user, message, self){
 function parseMessage(channel, user, message){
 	if(message.length > settings.maxChatSize){
 		chat("If I had mod, I would so delete that long ass message");
+		//Purge user
 		return;
 	}
 	if(settings.isLink.test(message) && !allowedLinkPosters[user.username]){
 		chat(user["display-name"] + ", you are not allowed to post links without permission!");
+		//Purge user
 		return;
 	}
 	if(message.charAt(0) == '!'){
 		var args = message.substring(1).toLowerCase().split(" ");
 		var command = args[0];
-		if(command=="ping"){
-			client.say(settings.channel, "pong");
-		}else if(command=="permit"){
-			var username = args[1];
-			allowedLinkPosters[username] = true; //Add user to hashset
-			chat(username + " is now permitted to post a link for " + settings.permitLinkTimeout + " seconds");
-			setTimeout(removeFromPermitList, settings.getLinkTimeout(), username); //Remove user from allowed posting list after timeout
+		args.splice(0,1);
+		switch(command){
+			case "ping":
+				client.say(settings.channel, "pong");
+				break;
+			case "permit":
+				var username = args[0];
+				allowedLinkPosters[username] = true; //Add user to hashset
+				chat(username + " is now permitted to post a link for " + settings.permitLinkTimeout + " seconds");
+				setTimeout(removeFromPermitList, settings.getLinkTimeout(), username); //Remove user from allowed posting list after timeout
+				break;
+			case "command":
+				var arg = args[0];
+				args.splice(0,1);
+				switch(arg){
+					case "add":
+						addCommand(args, channel);
+					break;
+				}
+				break;
 		}
 	}
+}
+
+function addCommand(args, channel){
+	var command = args[0];
+	var cooldown = 0;
+	var userlevel = "all"
+
+	if(command == null){
+		chat("Error adding command, command not specified");
+		return;
+	}
+
+	args.splice(0,1);
+	
+	if(args[0].startsWith("-cd=")){
+		cooldown = parseInt(flagToValue(args[0]));
+	}else if(args[0].startsWith("-ul=")){
+		userlevel = flagToValue(args[0]);
+	}
+
+	args.splice(0,1);
+
+	if(args[0].startsWith("-cd=")){
+		cooldown = parseInt(flagToValue(args[0]));
+	}else if(args[0].startsWith("-ul=")){
+		userlevel = flagToValue(args[0]);
+	}
+
+	args.splice(0,1);
+	var response = args.join(" ");
+	db.addCommand(channel.substring(1), command, response, cooldown, userlevel).then(function(){
+		chat("Command: '" + command + "' successfully added!");
+	}).catch(function(){
+		chat("Error adding command");
+	})
+}
+
+function flagToValue(flag){
+	return flag.substring(flag.indexOf('=')+1);
 }
 
 function chat(message){
