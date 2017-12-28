@@ -60,14 +60,14 @@ client.on("chat", function(channel, user, message, self){
 })
 
 function parseMessage(channel, user, message){
-	if(message.length > settings.maxChatSize){
-		chat(channel, "If I had mod, I would so delete that long ass message");
-		//Purge user
+	if(message.length > connectedChannels[channel].maxChars){
+		chat(channel, user["display-name"] + ", that message is way too long! [" + connectedChannels[channel].maxChars + "]");
+		client.timeout(channel, user.username, 1, "Wall of text spam");
 		return;
 	}
 	if(urlRegex({strict: false}).test(message) && !canPostLink(channel, user)){
 		chat(channel, user["display-name"] + ", you are not allowed to post links without permission!");
-		//Purge user
+		client.timeout(channel, user.username, 1, "You are not allowed to post links");
 		return;
 	}
 	if(message.charAt(0) == '!'){
@@ -75,15 +75,6 @@ function parseMessage(channel, user, message){
 		var command = args[0];
 		args.splice(0,1);
 		switch(command){
-			case "permit":
-				// if(!user.isMod)
-				// 	return;
-				var username = args[0];
-				allowedLinkPosters[channel] = {};
-				allowedLinkPosters[channel][username] = true; //Add user to hashset
-				chat(channel, username + " is now permitted to post a link for " + settings.permitLinkTimeout + " seconds");
-				setTimeout(removeFromPermitList, settings.getLinkTimeout(), username, channel); //Remove user from allowed posting list after timeout
-				break;
 			case "command":
 				var arg = args[0];
 				args.splice(0,1);
@@ -95,6 +86,32 @@ function parseMessage(channel, user, message){
 						addCommand(args, channel);
 					break;
 				}
+				break;
+			case "maxchars":
+				if(!canEditChannel(channel, user))
+					return;
+				var numChars = args[0];
+				if(numChars == null){
+					chat(channel, "Usage: !maxChars <num>");
+					return;
+				}
+				db.updateChannel(channel, "maxChars", parseInt(numChars)).then(() => {
+					chat(channel, "Successfuly updated maximum number of characters allowed["+numChars+"]");
+				}).then(() => {
+					connectedChannels[channel].maxChars = numChars;
+				}).catch((err) => {
+					//@TODO: Probably make this a whisper or something
+					chat(channel, "Something went wrong on the backend, try again homie");
+				});
+				break;
+			case "permit":
+				// if(!user.isMod)
+				// 	return;
+				var username = args[0];
+				allowedLinkPosters[channel] = {};
+				allowedLinkPosters[channel][username] = true; //Add user to hashset
+				chat(channel, username + " is now permitted to post a link for " + settings.permitLinkTimeout + " seconds");
+				setTimeout(removeFromPermitList, settings.getLinkTimeout(), username, channel); //Remove user from allowed posting list after timeout
 				break;
 			default:
 				if(!commandExists(channel, command))
@@ -186,7 +203,6 @@ function chat(channel, message){
 }
 
 function removeFromPermitList(username, channel){
-	console.log(username, "is no longer permitted to post links");
 	delete allowedLinkPosters[channel][username];
 }
 
@@ -213,6 +229,29 @@ function getUserPermLevel(channel, user){
 	}
 		// console.log("nobody");
 	return 0;
+}
+
+function getPermLevel(permName){
+	switch(permName){
+		case "owner":
+			return 5;
+		case "staff":
+			return 4;
+		case "mod":
+			return 3;
+		case "sub":
+			return 2;
+		case "reg":
+			return 1;
+		case "all":
+			return 0;
+		default:
+			return 0;
+	}
+}
+
+function canEditChannel(channel, user){
+	return getUserPermLevel(channel, user) >= getChannelPerm(channel, "channelEdit");
 }
 
 function canPostLink(channel, user){
