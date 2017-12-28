@@ -85,6 +85,9 @@ function parseMessage(channel, user, message){
 					case "add":
 						addCommand(args, channel);
 					break;
+					case "delete":
+						deleteCommand(args, channel);
+					break;
 				}
 				break;
 			case "maxchars":
@@ -176,6 +179,20 @@ function addCommand(args, channel){
 	}).catch(function(err){
 		chat(channel, "Error adding command");
 	})
+}
+
+function deleteCommand(args, channel){
+	var command = args[0];
+	if(command == null){
+		chat(channel, "Error, command does not exist");
+		return;
+	}
+	db.deleteCommand(channel, command).then(() => {
+		chat(channel, "Command successfully removed");
+		db.fetchCommandsByChannel(channel).then((cmds) => {
+			commands[channel] = cmds.val();
+		});
+	});
 }
 
 function commandExists(channel, command){

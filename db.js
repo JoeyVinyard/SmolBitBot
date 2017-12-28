@@ -26,6 +26,9 @@ module.exports = {
 			userlevel: userlevel
 		});
 	},
+	deleteCommand: function(channel, command){
+		return firebase.database().ref("commands/"+channel+"/"+command).remove();
+	},
 	updateChannel: function(channel, key, value){
 		return firebase.database().ref("channels/"+channel+"/"+key).set(value);
 	}
