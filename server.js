@@ -146,28 +146,18 @@ function addCommand(args, channel){
 
 	args.splice(0,1);
 
-	if(args[0].startsWith("-cd=")){
-		cooldown = parseInt(flagToValue(args[0]));
-		args.splice(0,1);
-		if(args[0].startsWith("-ul=")){
+	for(var i = 0; i < 2 && args[0].startsWith("-"); i++){
+		console.log(args);
+		if(args[0].startsWith("-cd=")){
+			cooldown = parseInt(flagToValue(args[0]));
+			args.splice(0,1);
+		}
+		else if(args[0].startsWith("-ul=")){
 			userlevel = flagToValue(args[0]);
 			args.splice(0,1);
-		}else{
-			response = args.join(" ");
-		}
-	}else if(args[0].startsWith("-ul=")){
-		userlevel = flagToValue(args[0]);
-		args.splice(0,1);
-		if(args[0].startsWith("-cd=")){
-			cooldown = flagToValue(args[0]);
-			args.splice(0,1);
-		}else{
-			response = args.join(" ");
 		}
 	}
-	if(!response){
-		response = args.join(" ");
-	}
+	response = args.join(" ");
 
 	if(commands[channel]==null){
 		commands[channel] = {};
