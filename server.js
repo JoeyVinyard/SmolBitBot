@@ -1,4 +1,5 @@
 var tmi = require("tmi.js");
+var urlRegex = require('url-regex');
 
 var db = require("./db");
 var config = require("./config");
@@ -35,17 +36,22 @@ client.on("connected", function(address, port){
 	db.fetchChannels().then((channels) => {
 		channels.forEach((ch) => {
 			client.join(ch.key);
+			allowedLinkPosters[ch.key] = {};
 		});
 	}).catch((err) => {
 		console.log("Unable to fetch channels", err);
 	})
 	db.fetchAllCommands().then((cmds) => {
+		console.log(cmds.val());
 		commands = cmds.val();
+		if(commands == null)
+			commands = {};
 	}).catch((err) => {
 		console.log("~Error~", err);
 	});
 })
 client.on("chat", function(channel, user, message, self){
+	channel = channel.substring(1);
 	if(self)//Ignore if the bot sent this message
 		return;
 	parseMessage(channel, user, message);
@@ -57,7 +63,7 @@ function parseMessage(channel, user, message){
 		//Purge user
 		return;
 	}
-	if(settings.isLink.test(message) && !allowedLinkPosters[channel][user.username]){
+	if(urlRegex({strict: false}).test(message) && !allowedLinkPosters[channel][user.username]){
 		chat(channel, user["display-name"] + ", you are not allowed to post links without permission!");
 		//Purge user
 		return;
@@ -68,8 +74,8 @@ function parseMessage(channel, user, message){
 		args.splice(0,1);
 		switch(command){
 			case "permit":
-				if(!user.isMod)
-					return;
+				// if(!user.isMod)
+				// 	return;
 				var username = args[0];
 				allowedLinkPosters[channel] = {};
 				allowedLinkPosters[channel][username] = true; //Add user to hashset
@@ -81,13 +87,29 @@ function parseMessage(channel, user, message){
 				args.splice(0,1);
 				switch(arg){
 					case undefined:
-						console.log("list");
+						//List commands
 						break;
 					case "add":
 						addCommand(args, channel);
 					break;
 				}
 				break;
+			default:
+				if(!commandExists(channel, command))
+					return;
+				var cmd = commands[channel][command];
+				if(!!cmd.usable || cmd.timeout == 0 || cmd.usable == null){
+					chat(channel, cmd.response);
+					if(cmd.timeout != 0){
+						cmd.usable=false;
+						setTimeout(function(){
+							try{
+								commands[channel][command].usable=true;
+							}catch(err){}
+						}, cmd.timeout*1000);
+					}
+				}
+			break;
 		}
 	}
 }
@@ -96,6 +118,7 @@ function addCommand(args, channel){
 	var command = args[0];
 	var cooldown = 0;
 	var userlevel = "all"
+	var response;
 
 	if(command == null){
 		chat("Error adding command, command not specified");
@@ -103,28 +126,53 @@ function addCommand(args, channel){
 	}
 
 	args.splice(0,1);
-	
-	if(args[0].startsWith("-cd=")){
-		cooldown = parseInt(flagToValue(args[0]));
-	}else if(args[0].startsWith("-ul=")){
-		userlevel = flagToValue(args[0]);
-	}
-
-	args.splice(0,1);
 
 	if(args[0].startsWith("-cd=")){
 		cooldown = parseInt(flagToValue(args[0]));
+		args.splice(0,1);
+		if(args[0].startsWith("-ul=")){
+			userlevel = flagToValue(args[0]);
+			args.splice(0,1);
+		}else{
+			response = args.join(" ");
+		}
 	}else if(args[0].startsWith("-ul=")){
 		userlevel = flagToValue(args[0]);
+		args.splice(0,1);
+		if(args[0].startsWith("-cd=")){
+			cooldown = flagToValue(args[0]);
+			args.splice(0,1);
+		}else{
+			response = args.join(" ");
+		}
+	}
+	if(!response){
+		response = args.join(" ");
 	}
 
-	args.splice(0,1);
-	var response = args.join(" ");
-	db.addCommand(channel.substring(1), command, response, cooldown, userlevel).then(function(){
+	if(commands[channel]==null){
+		commands[channel] = {};
+	}
+
+	if(commandExists(channel, command)){
+		chat(channel, "Error, command already exists");
+		return;
+	}
+
+	db.addCommand(channel, command, response, cooldown, userlevel).then(function(){
 		chat(channel, "Command: '" + command + "' successfully added!");
-	}).catch(function(){
+		db.fetchCommandsByChannel(channel).then((cmds) => {
+			commands[channel] = cmds.val();
+		})
+	}).catch(function(err){
 		chat(channel, "Error adding command");
 	})
+}
+
+function commandExists(channel, command){
+	if(commands == null || commands[channel] == null)
+		return false;
+	return !!commands[channel][command];
 }
 
 function flagToValue(flag){
@@ -136,7 +184,6 @@ function chat(channel, message){
 }
 
 function removeFromPermitList(username, channel){
-	console.log(allowedLinkPosters);
 	console.log(username, "is no longer permitted to post links");
 	delete allowedLinkPosters[channel][username];
 }

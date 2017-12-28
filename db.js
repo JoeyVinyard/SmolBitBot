@@ -10,10 +10,14 @@ module.exports = {
 	fetchAllCommands: function(){
 		return firebase.database().ref('commands').once("value");
 	},
-	fetchCommands: function(channel){
+	fetchCommands: function(){
+		return firebase.database().ref('commands').once("value");
+	},
+	fetchCommandsByChannel: function(channel){
 		return firebase.database().ref('commands/'+channel).once("value");
 	},
 	addCommand: function(channel, command, response, timeout, userlevel){
+		console.log(channel, command, response, timeout, userlevel);
 		return firebase.database().ref('commands/'+channel+"/"+command).set({
 			response: response,
 			timeout: timeout,
