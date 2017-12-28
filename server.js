@@ -22,6 +22,7 @@ var options = {
 var client = new tmi.client(options);
 var allowedLinkPosters = {}; //HashSet for permitted link posters
 var commands = {};
+var connectedChannels = {};
 
 console.log("Initializing firebase...");
 db.init(config.fbConfig);
@@ -34,6 +35,7 @@ console.log("Done");
 client.on("connected", function(address, port){
 	console.log("Successfully conntected to Twitch IRC");
 	db.fetchChannels().then((channels) => {
+		connectedChannels = channels.val();
 		channels.forEach((ch) => {
 			client.join(ch.key);
 			allowedLinkPosters[ch.key] = {};
@@ -63,7 +65,7 @@ function parseMessage(channel, user, message){
 		//Purge user
 		return;
 	}
-	if(urlRegex({strict: false}).test(message) && !allowedLinkPosters[channel][user.username]){
+	if(urlRegex({strict: false}).test(message) && !canPostLink(channel, user)){
 		chat(channel, user["display-name"] + ", you are not allowed to post links without permission!");
 		//Purge user
 		return;
@@ -186,4 +188,62 @@ function chat(channel, message){
 function removeFromPermitList(username, channel){
 	console.log(username, "is no longer permitted to post links");
 	delete allowedLinkPosters[channel][username];
+}
+
+function getUserPermLevel(channel, user){
+	if(isOwner(user)){
+		// console.log("owner");
+		return 5;
+	}
+	else if(isTwitchStaff(user)){
+		// console.log("staff");
+		return 4;
+	}
+	else if(isMod(user)){
+		// console.log("mod");
+		return 3;
+	}
+	else if(isSub(user)){
+		// console.log("sub");
+		return 2;
+	}
+	else if(isRegular(channel, user)){
+		// console.log("regular");
+		return 1;
+	}
+		// console.log("nobody");
+	return 0;
+}
+
+function canPostLink(channel, user){
+	var perm = getUserPermLevel(channel, user) >= getChannelPerm(channel, "linkPosting");
+	return (perm || !allowedLinkPosters[channel][user.username]);
+}
+
+function getChannelPerm(channel, perm){
+	return connectedChannels[channel][perm];
+}
+
+function isOwner(user){
+	try{
+		return !!user.badges.broadcaster;
+	}catch(err){
+		return false;
+	}
+}
+
+function isTwitchStaff(user){
+	return (user["user-type"] == "admin"||user["user-type"] == "global_mod"||user["user-type"] == "staff");
+}
+
+function isMod(user){
+	return !!user.mod;
+}
+
+function isSub(user){
+	return !!user.subscriber;
+}
+
+function isRegular(channel, user){
+	return false;//Implement later
 }
