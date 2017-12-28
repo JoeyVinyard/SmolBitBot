@@ -71,16 +71,21 @@ function parseMessage(channel, user, message){
 		return;
 	}
 	if(message.charAt(0) == '!'){
-		var args = message.substring(1).toLowerCase().split(" ");
+		var args = message.substring(1).split(" ");
 		var command = args[0];
 		args.splice(0,1);
-		switch(command){
+		switch(command.toLowerCase()){
 			case "command":
 				var arg = args[0];
 				args.splice(0,1);
 				switch(arg){
 					case undefined:
-						//List commands
+						var list = "Commands: "
+						Object.keys(commands[channel]).forEach((cmd) => {
+							list+= cmd + ", "
+						});
+						list = list.substring(0,list.length-2);
+						chat(channel, list);
 						break;
 					case "add":
 						addCommand(args, channel);
@@ -188,7 +193,7 @@ function deleteCommand(args, channel){
 		return;
 	}
 	db.deleteCommand(channel, command).then(() => {
-		chat(channel, "Command successfully removed");
+		chat(channel, "Command: '" + command + "' successfully removed");
 		db.fetchCommandsByChannel(channel).then((cmds) => {
 			commands[channel] = cmds.val();
 		});
