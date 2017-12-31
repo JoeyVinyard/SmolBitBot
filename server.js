@@ -1,11 +1,12 @@
 var tmi = require("tmi.js");
 var urlRegex = require('url-regex');
 
-var db = require("./db");
 var config = require("./config");
+var db = require("./db");
 var settings = require("./settings");
+var twitchAPI = require("./twitchAPI");
 
-var options = {
+var tmiOptions = {
 	options: {
 		debug: true
 	},
@@ -19,10 +20,11 @@ var options = {
 	channels: []
 }
 
-var client = new tmi.client(options);
+var client = new tmi.client(tmiOptions);
 var allowedLinkPosters = {}; //HashSet for permitted link posters
 var commands = {};
 var connectedChannels = {};
+var quotes = {};
 
 console.log("Initializing firebase...");
 db.init(config.fbConfig);
@@ -39,19 +41,37 @@ client.on("connected", function(address, port){
 		channels.forEach((ch) => {
 			client.join(ch.key);
 			allowedLinkPosters[ch.key] = {};
+			twitchAPI.getUserId(ch.key).then((id) => {
+				connectedChannels[ch.key].id = id;
+			});
 		});
 	}).catch((err) => {
 		console.log("Unable to fetch channels", err);
 	})
 	db.fetchAllCommands().then((cmds) => {
-		console.log(cmds.val());
 		commands = cmds.val();
 		if(commands == null)
 			commands = {};
 	}).catch((err) => {
 		console.log("~Error~", err);
 	});
+	db.fetchAllQuotes().then((qs) => {
+		quotes=qs.val();
+		if(quotes == null)
+			quotes = {};
+	}).catch((err) => {
+		console.log("Error fetching all quotes");
+	});
 })
+
+client.on("subscription", function (channel, username, method, message, userstate) {
+	chat(channel, username + ", has subscribed!");
+});
+
+client.on("resub", function (channel, username, months, message, userstate, methods) {
+    chat(channel, username + ", has resubbed for " + months + " months!");
+});
+
 client.on("chat", function(channel, user, message, self){
 	channel = channel.substring(1);
 	if(self)//Ignore if the bot sent this message
@@ -121,6 +141,18 @@ function parseMessage(channel, user, message){
 				chat(channel, username + " is now permitted to post a link for " + settings.permitLinkTimeout + " seconds");
 				setTimeout(removeFromPermitList, settings.getLinkTimeout(), username, channel); //Remove user from allowed posting list after timeout
 				break;
+			case "quote":
+				var arg = args[0];
+				args.splice(0,1);
+				switch(arg){
+					case undefined:
+						printRandomQuote(channel);
+					break;
+					case "add":
+						addQuote(channel, args.join(" "), user.username);
+					break;
+				}
+			break;
 			default:
 				if(!commandExists(channel, command))
 					return;
@@ -208,6 +240,40 @@ function commandExists(channel, command){
 
 function flagToValue(flag){
 	return flag.substring(flag.indexOf('=')+1);
+}
+
+function addQuote(channel, quote, username){
+	var id = connectedChannels[channel].id;
+	twitchAPI.getCurrentGame(id).then((game) => {
+		db.addQuote(channel, quote, game, username).then(() => {
+			chat(channel, "Quote added!");
+			db.fetchQuotesByChannel(channel).then((qs) => {
+				quotes[channel] = qs.val();
+			});
+		});		
+	}).catch((err) => {
+		console.log(channel, "is not live!");
+		db.addQuote(channel, quote, null, username).then(() => {
+			chat(channel, "Quote added!");
+			db.fetchQuotesByChannel(channel).then((qs) => {
+				quotes[channel] = qs.val();
+			});
+		});
+	})
+}
+
+function printRandomQuote(channel){
+	var qts = quotes[channel];
+	var keys = Object.keys(qts);
+	if(keys.length == 0){
+		chat(channel, "There are no quotes yet!");
+	}
+	var qt = qts[keys[Math.floor(Math.random() * keys.length)]];
+	var message = "\"" + qt.q + "\" - " + connectedChannels[channel].displayName;
+	if(!!qt.g)
+		message += ", while playing: " + qt.g
+	message += "-" + qt.d;
+	chat(channel, message);
 }
 
 function chat(channel, message){

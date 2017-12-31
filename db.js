@@ -13,11 +13,15 @@ module.exports = {
 	fetchAllCommands: function(){
 		return firebase.database().ref('commands').once("value");
 	},
-	fetchCommands: function(){
-		return firebase.database().ref('commands').once("value");
-	},
 	fetchCommandsByChannel: function(channel){
 		return firebase.database().ref('commands/'+channel).once("value");
+	},
+	fetchAllQuotes: function(){
+		return firebase.database().ref('quotes').once("value");
+	},
+	fetchQuotesByChannel: function(channel){
+		console.log("fetching quotes", channel);
+		return firebase.database().ref('quotes/'+channel).once("value");
 	},
 	addCommand: function(channel, command, response, timeout, userlevel){
 		return firebase.database().ref('commands/'+channel+"/"+command).set({
@@ -31,5 +35,15 @@ module.exports = {
 	},
 	updateChannel: function(channel, key, value){
 		return firebase.database().ref("channels/"+channel+"/"+key).set(value);
+	},
+	addQuote: function(channel, quote, game, username){
+		var date = new Date();
+		var quoteObj = {
+			q: quote,
+			g: game,
+			d: (date.getMonth()+1)+"/"+date.getDate()+"/"+date.getYear(),
+			u: username
+		}
+		return firebase.database().ref("quotes/"+channel).push(quoteObj);
 	}
 }

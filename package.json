@@ -9,6 +9,7 @@
   "author": "Joey Vinyard",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.17.1",
     "firebase": "^4.8.1",
     "is-url": "^1.2.2",
     "tmi.js": "^1.2.1",
