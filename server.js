@@ -25,6 +25,7 @@ var allowedLinkPosters = {}; //HashSet for permitted link posters
 var commands = {};
 var connectedChannels = {};
 var quotes = {};
+var regulars = {};
 
 console.log("Initializing firebase...");
 db.init(config.fbConfig);
@@ -62,6 +63,13 @@ client.on("connected", function(address, port){
 	}).catch((err) => {
 		console.log("Error fetching all quotes");
 	});
+	db.fetchRegulars().then((regs) => {
+		regulars = regs.val();
+		console.log(regulars);
+		db.removeRegular("nanopierogi", "bobaliny2");
+	}).catch((err) => {
+		console.log("Error fetching regulars", err);
+	})
 })
 
 client.on("subscription", function (channel, username, method, message, userstate) {
@@ -152,7 +160,25 @@ function parseMessage(channel, user, message){
 						addQuote(channel, args.join(" "), user.username);
 					break;
 				}
-			break;
+				break;
+			case "regular":
+				var arg = args[0];
+				args.splice(0,1);
+				switch(arg){
+					case "add":
+						addRegular(channel, args[0]);
+					break;
+					case "delete":
+						removeRegular(channel, args[0]);
+					break;
+					case undefined:
+						chat(channel, "Usage: !regular <add/delete> <user>");
+					break;
+					default:
+						chat(channel, "Usage: !regular <add/delete> <user>");
+					break;
+				}
+				break;
 			default:
 				if(!commandExists(channel, command))
 					return;
@@ -274,6 +300,25 @@ function printRandomQuote(channel){
 		message += ", while playing: " + qt.g
 	message += "-" + qt.d;
 	chat(channel, message);
+}
+
+function addRegular(channel, user){
+	if(!user){
+		chat(channel, "Usage: !regular add <user>");
+	}
+	db.addRegular(channel, user).then(() => {
+		chat(channel, "User: " + user + ", has been added to the regular list");
+	});
+}
+
+function removeRegular(channel, user){
+	if(!user){
+		chat(channel, "Usage: !regular remove <user>");
+	}
+	console.log("Removing user:",user);
+	db.removeRegular(channel, user).then(() => {
+		chat(channel, "User: " + user + ", has been removed from the regular list");
+	});
 }
 
 function chat(channel, message){

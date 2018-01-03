@@ -45,5 +45,14 @@ module.exports = {
 			u: username
 		}
 		return firebase.database().ref("quotes/"+channel).push(quoteObj);
+	},
+	addRegular: function(channel, user){
+		return firebase.database().ref("regulars/"+channel+"/"+user).set(true);
+	},
+	removeRegular: function(channel, user){
+		return firebase.database().ref("regulars/"+channel+"/"+user).remove();
+	},
+	fetchRegulars: function(){
+		return firebase.database().ref("regulars").once("value");
 	}
 }
