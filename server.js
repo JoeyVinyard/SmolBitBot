@@ -162,6 +162,8 @@ function parseMessage(channel, user, message){
 				}
 				break;
 			case "regular":
+				if(getUserPermLevel(channel, user) < getPermLevel("mod")) //Maybe make this change based on channel
+					return;
 				var arg = args[0];
 				args.splice(0,1);
 				switch(arg){
@@ -179,6 +181,10 @@ function parseMessage(channel, user, message){
 					break;
 				}
 				break;
+			case "viewers":
+				//Add timeout here
+				listViewers(channel);
+			break;
 			default:
 				if(!commandExists(channel, command))
 					return;
@@ -308,6 +314,10 @@ function addRegular(channel, user){
 	}
 	db.addRegular(channel, user).then(() => {
 		chat(channel, "User: " + user + ", has been added to the regular list");
+		if(regulars[channel] == null)
+			regulars[channel] = {};
+		regulars[channel][user] = true;
+		console.log(regulars);
 	});
 }
 
@@ -327,6 +337,12 @@ function chat(channel, message){
 
 function removeFromPermitList(username, channel){
 	delete allowedLinkPosters[channel][username];
+}
+
+function listViewers(channel){
+	twitchAPI.getViewers(channel).then((list) => {
+		chat(channel, "Viewers: " + list.join(", "));
+	})
 }
 
 function getUserPermLevel(channel, user){
