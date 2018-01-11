@@ -181,9 +181,6 @@ function parseMessage(channel, user, message){
 					break;
 				}
 				break;
-			case "viewers":
-				//Add timeout here
-				listViewers(channel);
 			break;
 			default:
 				if(!commandExists(channel, command))
@@ -339,10 +336,8 @@ function removeFromPermitList(username, channel){
 	delete allowedLinkPosters[channel][username];
 }
 
-function listViewers(channel){
-	twitchAPI.getViewers(channel).then((list) => {
-		chat(channel, "Viewers: " + list.join(", "));
-	})
+function getViewers(channel){
+	return twitchAPI.getViewers(channel);
 }
 
 function getUserPermLevel(channel, user){
