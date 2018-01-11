@@ -22,9 +22,9 @@ module.exports = {
 			return res.data.data[0];
 		});
 	},
-	getUserId: function(channel){
-		return twitchClient.get("users?login="+channel).then((res) => {
-			return res.data.data[0].id;
+	getUserId: function(channels){
+		return twitchClient.get("users?login="+channels.join("&login=")).then((res) => {
+			return res.data.data;
 		});
 	},
 	getViewers: function(channel){

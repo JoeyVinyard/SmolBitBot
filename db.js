@@ -54,5 +54,19 @@ module.exports = {
 	},
 	fetchRegulars: function(){
 		return firebase.database().ref("regulars").once("value");
+	},
+	updateViewTime: function(channel, viewers){
+		viewers.forEach((viewer) => {
+			firebase.database().ref("viewers/"+channel+"/"+viewer).transaction((watchTime) => {
+				return (watchTime || 0) + 1;
+			}).catch((err) => {
+				console.log(err);
+			})
+		})
+	},
+	getViewTime: function(channel, user){
+		return firebase.database().ref("viewers/"+channel+"/"+user).once("value").then((viewer) => {
+			return viewer.val();
+		})
 	}
 }

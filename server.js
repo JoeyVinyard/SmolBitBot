@@ -39,16 +39,18 @@ client.on("connected", function(address, port){
 	console.log("Successfully conntected to Twitch IRC");
 	db.fetchChannels().then((channels) => {
 		connectedChannels = channels.val();
-		channels.forEach((ch) => {
-			client.join(ch.key);
-			allowedLinkPosters[ch.key] = {};
-			twitchAPI.getUserId(ch.key).then((id) => {
-				connectedChannels[ch.key].id = id;
-			});
-		});
+		twitchAPI.getUserId(Object.keys(channels.val())).then((users) => {
+			users.forEach((user) => {
+				client.join(user.login);
+				allowedLinkPosters[user.login] = {};
+				connectedChannels[user.login].id = user.id;
+				setInterval(updateViewTimes, 1*60*1000, user.login);
+			})
+		})
 	}).catch((err) => {
 		console.log("Unable to fetch channels", err);
-	})
+	});
+	//Fetch commands
 	db.fetchAllCommands().then((cmds) => {
 		commands = cmds.val();
 		if(commands == null)
@@ -56,6 +58,7 @@ client.on("connected", function(address, port){
 	}).catch((err) => {
 		console.log("~Error~", err);
 	});
+	//Fetch quotes
 	db.fetchAllQuotes().then((qs) => {
 		quotes=qs.val();
 		if(quotes == null)
@@ -63,10 +66,9 @@ client.on("connected", function(address, port){
 	}).catch((err) => {
 		console.log("Error fetching all quotes");
 	});
+	//Fetch regular users
 	db.fetchRegulars().then((regs) => {
 		regulars = regs.val();
-		console.log(regulars);
-		db.removeRegular("nanopierogi", "bobaliny2");
 	}).catch((err) => {
 		console.log("Error fetching regulars", err);
 	})
@@ -181,6 +183,11 @@ function parseMessage(channel, user, message){
 					break;
 				}
 				break;
+			break;
+			case "viewtime":
+				getViewTime(channel, (args[0] || user.username)).then((viewtime) => {
+					chat(channel, (args[0] || user["display-name"]) + " has been watching for: " + viewtime + " minutes!");
+				})
 			break;
 			default:
 				if(!commandExists(channel, command))
@@ -314,7 +321,6 @@ function addRegular(channel, user){
 		if(regulars[channel] == null)
 			regulars[channel] = {};
 		regulars[channel][user] = true;
-		console.log(regulars);
 	});
 }
 
@@ -322,7 +328,6 @@ function removeRegular(channel, user){
 	if(!user){
 		chat(channel, "Usage: !regular remove <user>");
 	}
-	console.log("Removing user:",user);
 	db.removeRegular(channel, user).then(() => {
 		chat(channel, "User: " + user + ", has been removed from the regular list");
 	});
@@ -338,6 +343,19 @@ function removeFromPermitList(username, channel){
 
 function getViewers(channel){
 	return twitchAPI.getViewers(channel);
+}
+
+function updateViewTimes(channel){
+	console.log("updating channel", channel);
+	getViewers(channel).then((viewers) => {
+		db.updateViewTime(channel, viewers);
+	}).catch((err) => {
+		console.log(err);
+	})
+}
+
+function getViewTime(channel, user){
+	return db.getViewTime(channel, user);
 }
 
 function getUserPermLevel(channel, user){
