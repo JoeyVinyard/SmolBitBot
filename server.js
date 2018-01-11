@@ -186,7 +186,7 @@ function parseMessage(channel, user, message){
 			break;
 			case "viewtime":
 				getViewTime(channel, (args[0] || user.username)).then((viewtime) => {
-					chat(channel, (args[0] || user["display-name"]) + " has been watching for: " + viewtime + " minutes!");
+					chat(channel, (args[0] || user["display-name"]) + " has been watching for: " + prettyTime(viewtime));
 				})
 			break;
 			default:
@@ -346,7 +346,6 @@ function getViewers(channel){
 }
 
 function updateViewTimes(channel){
-	console.log("updating channel", channel);
 	getViewers(channel).then((viewers) => {
 		db.updateViewTime(channel, viewers);
 	}).catch((err) => {
@@ -356,6 +355,22 @@ function updateViewTimes(channel){
 
 function getViewTime(channel, user){
 	return db.getViewTime(channel, user);
+}
+
+function prettyTime(time){
+	var days = Math.floor(time/(60*24));
+	var hours = Math.floor(time/60)%24;
+	var minutes = time%60;
+	console.log(days, hours, minutes);
+	var prettyMessage = "";
+	if(days)
+		prettyMessage += days + " days, ";
+	if(hours)
+		prettyMessage += hours + " hours, ";
+	if(days || hours)
+		prettyMessage += "and "
+	prettyMessage += minutes + " minutes!";
+	return prettyMessage;
 }
 
 function getUserPermLevel(channel, user){
