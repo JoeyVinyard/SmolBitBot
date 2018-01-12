@@ -22,7 +22,12 @@ module.exports = {
 			return res.data.data[0];
 		});
 	},
-	getUserId: function(channels){
+	getStreams: function(channels){
+		return twitchClient.get("streams?user_login="+channels.join("&user_login=")).then((res) => {
+			return res.data.data;
+		});
+	},
+	getUserIds: function(channels){
 		return twitchClient.get("users?login="+channels.join("&login=")).then((res) => {
 			return res.data.data;
 		});

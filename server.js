@@ -1,6 +1,7 @@
 var tmi = require("tmi.js");
 var urlRegex = require('url-regex');
 
+var webClient = require("./client");
 var config = require("./config");
 var db = require("./db");
 var settings = require("./settings");
@@ -27,26 +28,31 @@ var connectedChannels = {};
 var quotes = {};
 var regulars = {};
 
+console.log("Initializing web client...");
+webClient.init();
+console.log("Finished\n");
+
 console.log("Initializing firebase...");
 db.init(config.fbConfig);
-console.log("Done");
+console.log("Finished\n");
 
 console.log("Initializing TMI...");
 client.connect();
-console.log("Done");
+console.log("Finished\n");
 
 client.on("connected", function(address, port){
 	console.log("Successfully conntected to Twitch IRC");
 	db.fetchChannels().then((channels) => {
 		connectedChannels = channels.val();
-		twitchAPI.getUserId(Object.keys(channels.val())).then((users) => {
+		twitchAPI.getUserIds(Object.keys(channels.val())).then((users) => {
 			users.forEach((user) => {
 				client.join(user.login);
 				allowedLinkPosters[user.login] = {};
 				connectedChannels[user.login].id = user.id;
 				setInterval(updateViewTimes, 1*60*1000, user.login);
-			})
-		})
+			});
+		});
+		refreshStreams();
 	}).catch((err) => {
 		console.log("Unable to fetch channels", err);
 	});
@@ -71,8 +77,9 @@ client.on("connected", function(address, port){
 		regulars = regs.val();
 	}).catch((err) => {
 		console.log("Error fetching regulars", err);
-	})
-})
+	});
+	setInterval(refreshStreams, 5000*60);
+});
 
 client.on("subscription", function (channel, username, method, message, userstate) {
 	chat(channel, username + ", has subscribed!");
@@ -371,6 +378,12 @@ function prettyTime(time){
 		prettyMessage += "and "
 	prettyMessage += minutes + " minutes!";
 	return prettyMessage;
+}
+
+function refreshStreams(){
+	twitchAPI.getStreams(Object.keys(connectedChannels)).then((streams) => {
+		console.log(streams);
+	});
 }
 
 function getUserPermLevel(channel, user){
