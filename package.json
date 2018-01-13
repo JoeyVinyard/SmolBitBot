@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.17.1",
+    "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "firebase": "^4.8.1",
     "is-url": "^1.2.2",

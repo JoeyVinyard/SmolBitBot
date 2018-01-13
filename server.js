@@ -37,7 +37,7 @@ db.init(config.fbConfig);
 console.log("Finished\n");
 
 console.log("Initializing TMI...");
-client.connect();
+// client.connect();
 console.log("Finished\n");
 
 client.on("connected", function(address, port){
