@@ -1,7 +1,6 @@
 var tmi = require("tmi.js");
 var urlRegex = require('url-regex');
 
-var webClient = require("./client");
 var config = require("./config");
 var db = require("./db");
 var settings = require("./settings");
@@ -28,16 +27,12 @@ var connectedChannels = {};
 var quotes = {};
 var regulars = {};
 
-console.log("Initializing web client...");
-webClient.init();
-console.log("Finished\n");
-
 console.log("Initializing firebase...");
 db.init(config.fbConfig);
 console.log("Finished\n");
 
 console.log("Initializing TMI...");
-// client.connect();
+client.connect();
 console.log("Finished\n");
 
 client.on("connected", function(address, port){
