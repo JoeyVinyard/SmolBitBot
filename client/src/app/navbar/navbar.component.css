@@ -1,0 +1,16 @@
+.authButton{
+	background-color: transparent;
+	border: none;
+	color: white;
+	display: inline-block;
+	float: right;
+	margin: 10px 7px;
+	padding: 6px 7px;
+}
+.navbar{
+	background-color: purple;
+	border-bottom: 3px solid #511d56;
+	height: 50px;
+	padding: 0px;
+	width: 100%;
+}
