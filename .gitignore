@@ -2,6 +2,7 @@ server/node_modules/
 server/config.js
 
 /client/dist
+/client/src/environments/config.ts
 /client/tmp
 /client/out-tsc
 

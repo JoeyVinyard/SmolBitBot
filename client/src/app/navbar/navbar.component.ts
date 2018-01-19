@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TwitchService } from '../services/twitch.service'
 
 @Component({
   selector: 'app-navbar',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+	connect(){
+		this.twitch.connect();
+	}
 
-  ngOnInit() {
-  }
+	constructor(private twitch: TwitchService) { }
 
+	ngOnInit() {
+	}
 }

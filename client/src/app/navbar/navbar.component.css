@@ -2,10 +2,17 @@
 	background-color: transparent;
 	border: none;
 	color: white;
+	cursor: pointer;
 	display: inline-block;
 	float: right;
-	margin: 10px 7px;
-	padding: 6px 7px;
+	font-size: 18px;
+	margin: 16px 10px;
+	outline: none;
+	padding: 0px;
+}
+.logo{
+	margin: 12px 6px;
+	max-height: 26px;
 }
 .navbar{
 	background-color: purple;

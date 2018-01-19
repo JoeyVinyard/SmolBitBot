@@ -5,6 +5,7 @@ var config = require("./config");
 var db = require("./db");
 var settings = require("./settings");
 var twitchAPI = require("./twitchAPI");
+var web = require("./web");
 
 var tmiOptions = {
 	options: {
@@ -32,7 +33,7 @@ db.init(config.fbConfig);
 console.log("Finished\n");
 
 console.log("Initializing TMI...");
-client.connect();
+// client.connect();
 console.log("Finished\n");
 
 client.on("connected", function(address, port){
