@@ -15,12 +15,8 @@ export class TwitchService {
 			"&scope=user:read:email"
 	}
 	getOAuth(token: string){
-		this.http.get("http://localhost:3000/oauth",{
+		return this.http.get("http://localhost:3000/oauth",{
 			params: new HttpParams().set("token", token)
-		}).subscribe((data: any = {}) => {
-			console.log(data.token);
-		}, (err) => {
-			console.error(err);
 		});
 	}
 
