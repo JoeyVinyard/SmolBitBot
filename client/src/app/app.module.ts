@@ -11,13 +11,15 @@ import { ConnectedComponent } from './connected/connected.component';
 import { TwitchService } from './services/twitch.service';
 
 import { ROUTES } from './app.routes';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SplashComponent,
     NavbarComponent,
-    ConnectedComponent
+    ConnectedComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

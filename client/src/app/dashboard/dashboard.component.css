@@ -1,0 +1,27 @@
+.dashboard{
+	margin: 10px 30px;
+	padding: 20px;
+}
+.dashboard *{
+	margin: 0px;
+}
+.header{
+	display: inline-block;
+	float: left;
+	font-size: 35px;
+}
+.itemTitle{
+	font-size: 20px;
+}
+.joinButton{
+	background-color: purple;
+	border: 2px solid black;
+	color: white;
+	display: inline-block;
+	height: 33px;
+	float: right;
+	font-size: 20px;
+}
+.formItem{
+
+}

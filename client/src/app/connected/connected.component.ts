@@ -12,12 +12,13 @@ export class ConnectedComponent implements OnInit {
 	connected = false;
 	successCounter = 5;
 
-	countDown(){
-		this.successCounter--;
-		if(this.successCounter > 0)
-			setTimeout(this.countDown, 1000);
-		else
-			this.router.navigateByUrl("/");
+	countDown(cc: ConnectedComponent){
+		cc.successCounter--;
+		if(cc.successCounter > 0){
+			setTimeout(cc.countDown, 1000, cc);
+		}else{
+			cc.router.navigateByUrl("dashboard");
+		}
 	}
 
 	constructor(private activeRoute: ActivatedRoute, private router: Router, private twitch: TwitchService) {
@@ -25,7 +26,7 @@ export class ConnectedComponent implements OnInit {
 			this.twitch.getOAuth(queryParamMap.get("code")).subscribe((data: any = {}) => {
 				window.localStorage.setItem("twitchToken", data.token);
 				this.connected = true;
-				this.countDown();
+				this.countDown(this);
 			}, (err) => {
 				console.error(err);
 			});

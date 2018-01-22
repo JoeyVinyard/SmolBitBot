@@ -1,0 +1,683 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"LIST",
+				"N_LISTS"
+			],
+			[
+				"freeL",
+				"freelistSentinels"
+			],
+			[
+				"Array",
+				"ArrayList"
+			],
+			[
+				"inde",
+				"indexOne"
+			],
+			[
+				"getNum",
+				"getNumTwo"
+			],
+			[
+				"getN",
+				"getNumOne"
+			],
+			[
+				"Arr",
+				"ArrayList"
+			],
+			[
+				"flo",
+				"floatingValue"
+			],
+			[
+				"float",
+				"floatingKey"
+			],
+			[
+				"hash",
+				"hashCode"
+			],
+			[
+				"temp",
+				"tempValue"
+			],
+			[
+				"fl",
+				"floatingValue"
+			],
+			[
+				"pl",
+				"placeWithHash"
+			],
+			[
+				"Perco",
+				"PercolationStats"
+			],
+			[
+				"el",
+				"elementSize"
+			],
+			[
+				"upd",
+				"update_list_users"
+			],
+			[
+				"GtkTree",
+				"GtkTreeModel"
+			],
+			[
+				"send",
+				"sendCommand"
+			],
+			[
+				"crea",
+				"createRoom_button"
+			],
+			[
+				"list",
+				"listRooms"
+			],
+			[
+				"poi",
+				"positions"
+			],
+			[
+				"c",
+				"char"
+			],
+			[
+				"de",
+				"destlength"
+			],
+			[
+				"create",
+				"createBlank"
+			],
+			[
+				"connG",
+				"connGenes"
+			],
+			[
+				"get",
+				"getWeightedValue"
+			],
+			[
+				"nodeG",
+				"nodeGene"
+			],
+			[
+				"con",
+				"connection"
+			],
+			[
+				"hid",
+				"hiddenNode"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/C/Users/Joey Vinyard/Desktop/CS252/lab1-src/myMalloc.c",
+			"settings":
+			{
+				"buffer_size": 11490,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/Users/Joey Vinyard/Desktop/CS252/lab1-src/myMalloc.h",
+			"settings":
+			{
+				"buffer_size": 2980,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/Users/Joey Vinyard/Desktop/CS252/lab1-src/printing.c",
+			"settings":
+			{
+				"buffer_size": 4754,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 228.0,
+		"last_filter": "install",
+		"selected_items":
+		[
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"mater",
+				"Material Theme: Activate theme"
+			],
+			[
+				"mat",
+				"Material Theme: Activate theme"
+			],
+			[
+				"material",
+				"Material Theme: Configuration"
+			],
+			[
+				"install pa",
+				"Package Control: Install Package"
+			],
+			[
+				"package con",
+				"Package Control: Add Channel"
+			],
+			[
+				"ma",
+				"Material Theme: Configuration"
+			],
+			[
+				"install pak",
+				"Package Control: Install Package"
+			],
+			[
+				"pack",
+				"Package Control: Add Channel"
+			],
+			[
+				"Package Control: Instal",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 496.0
+	},
+	"console":
+	{
+		"height": 160.0,
+		"history":
+		[
+			"view.settings().get('font_face')",
+			"Package Control:Install Package SFTP",
+			"import urllib.request,os,hashlib; h = 'df21e130d211cfc94d9b0905775a7c0f' + '1e3d39e33b79698005270310898eea76'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)",
+			"Package Control: Install Package SFTP",
+			"clear",
+			"SFTP",
+			"Install Package SFTP",
+			"Install Package",
+			"help",
+			"import urllib.request,os,hashlib; h = 'df21e130d211cfc94d9b0905775a7c0f' + '1e3d39e33b79698005270310898eea76'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/Joey Vinyard/Desktop/CS252",
+		"/C/Users/Joey Vinyard/Desktop/CS252/lab1-src"
+	],
+	"file_history":
+	[
+		"/C/Users/Joey Vinyard/Desktop/CS252/lab1-src/tests/test_exact",
+		"/C/Users/Joey Vinyard/Desktop/CS252/lab1-src/myMalloc.h",
+		"/C/Users/Joey Vinyard/Desktop/CS252/lab1-src/printing.c",
+		"/C/Users/Joey Vinyard/Desktop/CS252/lab1-src/runtest.py",
+		"/C/Users/Joey Vinyard/Desktop/CS252/lab1-src/printing.h",
+		"/C/Users/Joey Vinyard/Desktop/github/SmolBitBot/client/src/environments/CS252.sublime-project",
+		"/C/Users/Joey Vinyard/Desktop/CS252/sftp-config.json",
+		"/C/Users/Joey Vinyard/AppData/Roaming/Sublime Text 3/Packages/User/sftp_servers/purdue",
+		"/C/users/joeyvi~1/appdata/local/temp/sublime-sftp-browse-1516556605/purdue/home/u96/jvinyar/cs252/lab1-src/myMalloc.h",
+		"/C/users/joeyvi~1/appdata/local/temp/sublime-sftp-browse-1516559409/purdue/home/u96/jvinyar/cs252/lab1-src/printing.h",
+		"/C/users/joeyvi~1/appdata/local/temp/sublime-sftp-browse-1516551496/purdue/home/u96/jvinyar/cs252/lab1-src/myMalloc.c",
+		"/C/Users/Joey Vinyard/Desktop/github/SmolBitBot/client/src/app/dashboard/dashboard.component.css",
+		"/C/Users/Joey Vinyard/Desktop/github/SmolBitBot/client/src/app/dashboard/dashboard.component.html",
+		"/C/Users/Joey Vinyard/Desktop/github/SmolBitBot/client/src/app/services/twitch.service.ts",
+		"/C/Users/Joey Vinyard/Desktop/github/SmolBitBot/client/src/app/app.routes.ts",
+		"/C/Users/Joey Vinyard/Desktop/github/SmolBitBot/client/src/app/navbar/navbar.component.css",
+		"/C/Users/Joey Vinyard/Desktop/github/SmolBitBot/client/src/app/navbar/navbar.component.html",
+		"/C/Users/Joey Vinyard/Desktop/github/SmolBitBot/client/src/app/app.component.ts",
+		"/C/Users/Joey Vinyard/Desktop/github/SmolBitBot/server/server.js",
+		"/C/Users/Joey Vinyard/Desktop/github/SmolBitBot/client/src/app/connected/connected.component.ts",
+		"/C/Users/Joey Vinyard/Desktop/github/SmolBitBot/client/src/environments/config.ts",
+		"/C/Users/Joey Vinyard/Desktop/github/SmolBitBot/server/config.js",
+		"/C/Users/Joey Vinyard/Desktop/github/SmolBitBot/config.js",
+		"/C/Users/Joey Vinyard/Desktop/github/SmolBitBot/db.js",
+		"/C/Users/Joey Vinyard/Desktop/github/SmolBitBot/twitchAPI.js",
+		"/C/Users/Joey Vinyard/Desktop/github/SmolBitBot/client.js",
+		"/C/Users/Joey Vinyard/Desktop/github/SmolBitBot/public/js/auth.js",
+		"/C/Users/Joey Vinyard/Desktop/github/SmolBitBot/index.html",
+		"/C/Users/Joey Vinyard/Desktop/github/SmolBitBot/server.js",
+		"/C/Users/Joey Vinyard/Desktop/github/SmolBitBot/public/css/main.css",
+		"/C/Users/Joey Vinyard/Desktop/github/SmolBitBot/public/styles.css",
+		"/C/Users/Joey Vinyard/Desktop/github/SmolBitBot/router.js",
+		"/C/Users/Joey Vinyard/Desktop/CS250/main.c",
+		"/C/Users/Joey Vinyard/Desktop/CS250/file_to_read.txt",
+		"/C/Users/Joey Vinyard/Desktop/CS250/sftp-config.json",
+		"/C/Users/Joey Vinyard/Desktop/Hashing/out.txt",
+		"/C/Users/Joey Vinyard/Desktop/Hashing/run.bat",
+		"/C/Users/Joey Vinyard/Desktop/Hashing/Outputs.java",
+		"/C/Users/Joey Vinyard/Desktop/Hashing/Pair.java",
+		"/C/Users/Joey Vinyard/Desktop/Hashing/SortedValue.java",
+		"/C/Users/Joey Vinyard/Desktop/Hashing/Cuckoo.java",
+		"/C/Users/Joey Vinyard/Desktop/Hashing/SumSort.java",
+		"/C/Users/Joey Vinyard/Desktop/Hashing/examples/match10000.txt",
+		"/C/Users/Joey Vinyard/Desktop/Hashing/SumHash.java",
+		"/C/Users/Joey Vinyard/Desktop/Hashing/examples/values100.txt",
+		"/C/Users/Joey Vinyard/Desktop/Hashing/examples/match100.txt",
+		"/C/Users/Joey Vinyard/Desktop/Hashing/Key.java",
+		"/C/Users/Joey Vinyard/Desktop/Hashing/build.bat",
+		"/C/Users/Joey Vinyard/Desktop/Hashing/Value.java",
+		"/C/Users/Joey Vinyard/Desktop/Hashing/examples/cars200.txt",
+		"/C/Users/Joey Vinyard/Desktop/Hashing/examples/maxcars200.txt",
+		"/C/Users/Joey Vinyard/Desktop/Hashing/examples/cars1000.txt",
+		"/C/Users/Joey Vinyard/Desktop/Hashing/examples/cuckoo3.txt",
+		"/C/Users/Joey Vinyard/Desktop/Hashing/examples/cuckoo1.txt",
+		"/C/Users/Joey Vinyard/Desktop/Hashing/examples/cuckoo1out.txt",
+		"/C/Users/Joey Vinyard/Desktop/Hashing/examples/cuckoo2out.txt",
+		"/D/Downloads/homework",
+		"/D/Downloads/summer2017",
+		"/C/Users/Joey Vinyard/Desktop/JavaCSVtoDB/pom.xml",
+		"/C/Users/Joey Vinyard/Desktop/JavaCSVtoDB/src/main/java/com/joey/jctb/App.java",
+		"/C/Users/Joey Vinyard/Desktop/JavaCSVtoDB/src/test/java/com/joey/jctb/AppTest.java",
+		"/C/Users/Joey Vinyard/Desktop/JavaCSVtoDB/JavaCSVtoDB/src/main/java/com/joey/jctb/App.java",
+		"/C/Users/Joey Vinyard/Desktop/JavaCSVtoDB/JavaCSVtoDB/pom.xml",
+		"/C/Users/Joey Vinyard/Desktop/JavaCSVtoDB/src/main/JavaCVStoDB.java",
+		"/C/Users/Joey Vinyard/Desktop/JavaCSVtoDB/Current_Employee_Names__Salaries__and_Position_Titles.csv",
+		"/C/Users/Joey Vinyard/Desktop/JavaCSVtoDB/JavaCVStoDB.cfg",
+		"/C/Users/Joey Vinyard/Desktop/Filter/run.bat",
+		"/C/Users/Joey Vinyard/Desktop/Filter/Query.java",
+		"/C/Users/Joey Vinyard/Desktop/Filter/filter1out.txt",
+		"/C/Users/Joey Vinyard/Desktop/Filter/Filter.java",
+		"/C/Users/Joey Vinyard/Desktop/Filter/Point.java",
+		"/C/Users/Joey Vinyard/Desktop/251Sorting/Rhyming.java",
+		"/C/Users/Joey Vinyard/Desktop/251Sorting/run.bat",
+		"/C/Users/Joey Vinyard/Desktop/251Sorting/Quick3wayBM_V.java",
+		"/C/Users/Joey Vinyard/Desktop/251Sorting/Quick3wayBM.java",
+		"/C/Users/Joey Vinyard/Desktop/251Sorting/outputV2.txt",
+		"/C/Users/Joey Vinyard/Desktop/251Sorting/outputV1.txt",
+		"/C/Users/Joey Vinyard/Desktop/251Sorting/output2.txt",
+		"/C/Users/Joey Vinyard/Desktop/251Sorting/output3.txt",
+		"/C/Users/JOEYVI~1/AppData/Local/Temp/Rar$DRa0.366/outputV2.txt",
+		"/C/Users/JOEYVI~1/AppData/Local/Temp/Rar$DRa0.706/outputV3.txt",
+		"/C/Users/Joey Vinyard/Desktop/251Sorting/output1.txt",
+		"/C/Users/JOEYVI~1/AppData/Local/Temp/Rar$DRa0.414/outputV1.txt",
+		"/C/Users/Joey Vinyard/Desktop/251Sorting/numbers1.txt",
+		"/C/Users/Joey Vinyard/Desktop/Minecraft Plugin Development/plugins/CCShop/config.yml",
+		"/C/Users/Joey Vinyard/Desktop/Minecraft Plugin Development/permissions.yml",
+		"/C/Users/Joey Vinyard/Desktop/Minecraft Plugin Development/plugins/PickStats/config.yml",
+		"/C/Users/Joey Vinyard/Desktop/NEAT-XOR/js/breeder.js",
+		"/C/Users/Joey Vinyard/Desktop/Minecraft Plugin Development/plugins/PermissionsEx/permissions.yml",
+		"/C/Users/Joey Vinyard/Desktop/NEAT-XOR/index.html",
+		"/C/Users/Joey Vinyard/Desktop/NEAT-XOR/js/controller.js",
+		"/C/Users/Joey Vinyard/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/C/Users/Joey Vinyard/AppData/Roaming/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/C/Users/Joey Vinyard/Desktop/Percolation/run.bat",
+		"/C/Users/Joey Vinyard/Desktop/Percolation/PercolationVisualizer.java",
+		"/C/Users/Joey Vinyard/Desktop/Python testing/imageTesting.py",
+		"/C/Users/Joey Vinyard/Desktop/Python testing/guiTest.py",
+		"/C/Users/Joey Vinyard/Desktop/JSPhysics/js/physics.js",
+		"/C/Users/Joey Vinyard/AppData/Roaming/Sublime Text 3/Packages/Material Theme/Preferences.sublime-settings",
+		"/C/Users/Joey Vinyard/Desktop/travel-blog/.csslintrc",
+		"/C/Users/Joey Vinyard/Desktop/travel-blog/.slugignore",
+		"/C/Users/Joey Vinyard/Desktop/travel-blog/bower.json",
+		"/D/SteamLibrary/steamapps/common/RimWorld/Mods/Core/Defs/Storyteller/Incidents_Map_Threats.xml",
+		"/D/SteamLibrary/steamapps/common/RimWorld/Mods/Core/Defs/Storyteller/Incidents_Map_Special.xml",
+		"/D/SteamLibrary/steamapps/common/RimWorld/Mods/Core/Defs/ThingDefs_Buildings/Buildings_Power.xml",
+		"/D/SteamLibrary/steamapps/common/RimWorld/Mods/Core/Defs/ThingDefs_Buildings/Buildings_Ship.xml",
+		"/D/SteamLibrary/steamapps/common/XCom-Enemy-Unknown/XComGame/Config/DefaultGameCore.ini",
+		"/D/SteamLibrary/steamapps/common/XCom-Enemy-Unknown/XComGame/Config/DefaultGame.ini",
+		"/C/Users/Joey Vinyard/Documents/My Games/XCOM - Enemy Within/XComGame/Config/XComUI.ini",
+		"/C/Users/Joey Vinyard/Documents/My Games/XCOM - Enemy Within/XComGame/Config/XComMetaData.ini",
+		"/C/Users/Joey Vinyard/Documents/My Games/XCOM - Enemy Within/XComGame/Config/XComGameData.ini",
+		"/C/Users/Joey Vinyard/Documents/My Games/XCOM - Enemy Within/XComGame/Config/XComGame.ini",
+		"/C/Users/Joey Vinyard/Documents/My Games/XCOM - Enemy Within/XComGame/Config/XComNameList.ini",
+		"/D/SteamLibrary/steamapps/common/XCom-Enemy-Unknown/XComGame/Config/DefaultInput.ini",
+		"/D/SteamLibrary/steamapps/common/XCom-Enemy-Unknown/XComGame/Config/DefaultEditor.ini",
+		"/D/SteamLibrary/steamapps/common/XCom-Enemy-Unknown/XComGame/Config/DefaultDLC.ini",
+		"/D/SteamLibrary/steamapps/common/XCom-Enemy-Unknown/XComGame/Config/DefaultContent.ini",
+		"/D/SteamLibrary/steamapps/common/XCom-Enemy-Unknown/XComGame/Config/DefaultCompat.ini",
+		"/D/SteamLibrary/steamapps/common/XCom-Enemy-Unknown/XComGame/Config/DefaultEditorKeyBindings.ini",
+		"/D/SteamLibrary/steamapps/common/XCom-Enemy-Unknown/XComGame/Config/DefaultEditorUserSettings.ini",
+		"/D/SteamLibrary/steamapps/common/XCom-Enemy-Unknown/XComGame/Config/DefaultEngine.ini",
+		"/D/SteamLibrary/steamapps/common/XCom-Enemy-Unknown/XComGame/Config/DefaultGameData.ini",
+		"/D/SteamLibrary/steamapps/common/XCom-Enemy-Unknown/XComGame/Config/DefaultLightmass.ini",
+		"/D/SteamLibrary/steamapps/common/XCom-Enemy-Unknown/XComGame/Config/DefaultLoadouts.ini",
+		"/D/SteamLibrary/steamapps/common/XCom-Enemy-Unknown/XComGame/Config/DefaultMaps.ini",
+		"/D/SteamLibrary/steamapps/common/XCom-Enemy-Unknown/XComGame/Config/DefaultMetaData.ini",
+		"/D/SteamLibrary/steamapps/common/XCom-Enemy-Unknown/XComGame/Config/DefaultMPGame.ini",
+		"/D/SteamLibrary/steamapps/common/XCom-Enemy-Unknown/XComGame/Config/DefaultNarrative.ini"
+	],
+	"find":
+	{
+		"height": 97.0
+	},
+	"find_in_files":
+	{
+		"height": 161.0,
+		"where_history":
+		[
+			"C:\\Users\\Joey Vinyard\\Desktop\\CS252\\lab1-src"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			";\n",
+			"malloc_debug_color",
+			"node",
+			"false",
+			"this",
+			"1000",
+			"(){\n",
+			"(\"\")",
+			"});\n",
+			"getUserIds",
+			");\n",
+			"display",
+			"();\n",
+			"myreadc",
+			"finalOut",
+			"SumHash",
+			"match",
+			"matches100",
+			"SumSort",
+			"1 60",
+			"70 40",
+			"70 40 68",
+			"3",
+			"2",
+			"final",
+			"out",
+			"this",
+			";",
+			"a",
+			"int",
+			"String",
+			" + \" \" +",
+			",",
+			"Value",
+			"1773+",
+			"1773",
+			"59",
+			"98",
+			"68",
+			"207",
+			"68",
+			"sum",
+			"Integer",
+			"intValue",
+			"nums",
+			"Comparable",
+			"value",
+			"pairs",
+			"pairsTwo",
+			"nums",
+			"contains",
+			"3485301",
+			"479",
+			"428",
+			");\n",
+			"225 249",
+			"274",
+			"hashCode",
+			"this",
+			"his.(n+1",
+			"++;\n",
+			"points",
+			">();\n",
+			"pointsX",
+			"exch",
+			"StdOut",
+			"])",
+			" == ",
+			"f(",
+			"==",
+			"lo",
+			", m",
+			"%d, M",
+			"M",
+			"step",
+			"lo",
+			"step",
+			"lo",
+			"med",
+			"m",
+			"8",
+			"i"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/C/Users/Joey Vinyard/Desktop/CS252/lab1-src/myMalloc.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 11490,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6358,
+								6358
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": true,
+							"syntax": "Packages/C++/C.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 4435.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/C/Users/Joey Vinyard/Desktop/CS252/lab1-src/myMalloc.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2980,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2288,
+								2288
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": true,
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 69.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/C/Users/Joey Vinyard/Desktop/CS252/lab1-src/printing.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4754,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3153,
+								3153
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": true,
+							"syntax": "Packages/C++/C.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2760.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 33.0
+	},
+	"input":
+	{
+		"height": 73.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.doc":
+	{
+		"height": 0.0
+	},
+	"output.exec":
+	{
+		"height": 148.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.sftp":
+	{
+		"height": 130.0
+	},
+	"pinned_build_system": "Packages/Java/JavaC.sublime-build",
+	"project": "CS252.sublime-project",
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 431.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

@@ -12,7 +12,7 @@ export class TwitchService {
 			"?client_id="+config.twitchClientId+
 			"&redirect_uri=http://localhost:4200/connected"+
 			"&response_type=code"+
-			"&scope=user:read:email"
+			"&scope=user:edit+user:read:email"
 	}
 	getOAuth(token: string){
 		return this.http.get("http://localhost:3000/oauth",{

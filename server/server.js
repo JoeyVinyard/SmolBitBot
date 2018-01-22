@@ -33,7 +33,7 @@ db.init(config.fbConfig);
 console.log("Finished\n");
 
 console.log("Initializing TMI...");
-// client.connect();
+client.connect();
 console.log("Finished\n");
 
 client.on("connected", function(address, port){
@@ -218,15 +218,19 @@ function addCommand(args, channel){
 	var userlevel = "all"
 	var response;
 
-	if(command == null){
-		chat("Error adding command, command not specified");
+	if(!command){
+		chat(channel, "Error adding command, usage: !command add <command> -flags <response>");
 		return;
 	}
 
 	args.splice(0,1);
 
+	if(!args[0]){
+		chat(channel, "Error adding command, usage: !command add <command> -flags <response>");
+		return;
+	}
+
 	for(var i = 0; i < 2 && args[0].startsWith("-"); i++){
-		console.log(args);
 		if(args[0].startsWith("-cd=")){
 			cooldown = parseInt(flagToValue(args[0]));
 			args.splice(0,1);
@@ -237,6 +241,11 @@ function addCommand(args, channel){
 		}
 	}
 	response = args.join(" ");
+
+	if(!response){
+		chat(channel, "Error adding command, usage: !command add <command> -flags <response>");
+		return;
+	}
 
 	if(commands[channel]==null){
 		commands[channel] = {};
