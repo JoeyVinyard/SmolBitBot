@@ -1,14 +1,30 @@
+.column{
+	margin: 10px 20px 0px 10px !important;
+	padding-bottom: 10px;
+	width: 50%;
+}
 .dashboard{
-	margin: 10px 30px;
-	padding: 20px;
+	border: 2px solid grey;
+	border-radius: 5px;
+	margin: 30px 50px;
+	overflow: hidden;
 }
 .dashboard *{
 	margin: 0px;
 }
+.dropdown{
+	font-size: 16px;
+	margin-top: 3px !important;
+	width: 200px;
+}
+.formItem{
+	margin: 15px 10px 25px 20px !important;
+}
 .header{
-	display: inline-block;
-	float: left;
-	font-size: 35px;
+	background-color: #E9E9E9;
+	border-bottom: 2px solid grey;
+	overflow: hidden;
+	padding: 10px;
 }
 .itemTitle{
 	font-size: 20px;
@@ -18,10 +34,17 @@
 	border: 2px solid black;
 	color: white;
 	display: inline-block;
-	height: 33px;
 	float: right;
 	font-size: 20px;
+	height: 34px;
+	margin-top: 4px !important;
 }
-.formItem{
-
+.subTitle{
+	font-size: 24px;
+}
+.title{
+	display: inline-block;
+	float: left;
+	font-size: 35px;
+	font-weight: bold;
 }

@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+	config = {
+		addReg: "Viewer",
+		command: "Viewer",
+		edit: "Viewer"
+	}
+	permOptions = ["Viewer", "Regular", "Subscriber", "Moderator", "Broadcaster"];
 
-  ngOnInit() {
-  }
+	constructor() { }
+
+	ngOnInit() {
+	}
 
 }

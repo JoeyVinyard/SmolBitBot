@@ -1,7 +1,27 @@
 <div class="dashboard">
-	<p class="header">Dashboard</p>
-	<button type="button" class="joinButton" (click)="join()">Join Channel</button>
-	<div class="formItem">
-		<p class="itemTitle"></p>
+	<div class="header">
+		<p class="title">Dashboard</p>
+		<button type="button" class="joinButton" (click)="join()">Join Channel</button>
+	</div>
+	<div class="column">
+		<p class="subTitle">Permissions</p>
+		<div class="formItem">
+			<p class="itemTitle">Edit Channel:</p>
+			<select [(ngModel)]="config.edit" class="dropdown">
+				<option class="options" *ngFor="let option of permOptions" [value]="option">{{option}}</option>
+			</select>
+		</div>
+		<div class="formItem">
+			<p class="itemTitle">Add/Remove Commands</p>
+			<select [(ngModel)]="config.command" class="dropdown">
+				<option class="options" *ngFor="let option of permOptions" [value]="option">{{option}}</option>
+			</select>
+		</div>
+		<div class="formItem">
+			<p class="itemTitle">Add Regulars:</p>
+			<select [(ngModel)]="config.addReg" class="dropdown">
+				<option class="options" *ngFor="let option of permOptions" [value]="option">{{option}}</option>
+			</select>
+		</div>
 	</div>
 </div>
