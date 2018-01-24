@@ -7,21 +7,34 @@
 		<p class="subTitle">Permissions</p>
 		<div class="formItem">
 			<p class="itemTitle">Edit Channel:</p>
-			<select [(ngModel)]="config.edit" class="dropdown">
+			<select  [(ngModel)]="config.edit" (ngModelChange)="updateConfig('edit', $event)" class="dropdown">
 				<option class="options" *ngFor="let option of permOptions" [value]="option">{{option}}</option>
 			</select>
+			<p class="updateResponse">{{status.edit}}</p>
 		</div>
 		<div class="formItem">
 			<p class="itemTitle">Add/Remove Commands</p>
-			<select [(ngModel)]="config.command" class="dropdown">
+			<select [(ngModel)]="config.command" (ngModelChange)="updateConfig('command', $event)" class="dropdown">
 				<option class="options" *ngFor="let option of permOptions" [value]="option">{{option}}</option>
 			</select>
+			<p class="updateResponse">{{status.command}}</p>
 		</div>
 		<div class="formItem">
 			<p class="itemTitle">Add Regulars:</p>
-			<select [(ngModel)]="config.addReg" class="dropdown">
+			<select [(ngModel)]="config.addReg" (ngModelChange)="updateConfig('addReg', $event)" class="dropdown">
 				<option class="options" *ngFor="let option of permOptions" [value]="option">{{option}}</option>
 			</select>
+			<p class="updateResponse">{{status.addReg}}</p>
+		</div>
+	</div>
+	<div class="column">
+		<p class="subTitle">Chat Settings</p>
+		<div class="formItem">
+			<p class="itemTitle">Max Characters</p>
+			<!-- <select  [(ngModel)]="config.edit" (ngModelChange)="updateConfig('edit', $event)" class="dropdown">
+				<option class="options" *ngFor="let option of permOptions" [value]="option">{{option}}</option>
+			</select>
+			<p class="updateResponse">{{status.edit}}</p> -->
 		</div>
 	</div>
 </div>

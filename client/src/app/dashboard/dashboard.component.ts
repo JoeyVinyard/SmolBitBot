@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +13,16 @@ export class DashboardComponent implements OnInit {
 		command: "Viewer",
 		edit: "Viewer"
 	}
+	status = {
+		addReg: "",
+		command: "",
+		edit: ""
+	}
 	permOptions = ["Viewer", "Regular", "Subscriber", "Moderator", "Broadcaster"];
+
+	updateConfig(prop, val){
+		console.log(prop, val)
+	}
 
 	constructor() { }
 
