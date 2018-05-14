@@ -1,30 +1,29 @@
-var http = require('http');
-var url = require('url');
-
+const express = require('express')
+const app = express()
 var twitch = require('./twitchAPI');
 
-http.createServer(function (req, res) {
-	res.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
-	var request = url.parse(req.url, true);
-	if(request.pathname == '/oauth'){
-		if(!request.query.token){
-			console.log("No token provided");
-			res.statusCode = 400;
-			res.write("{}");
-			res.end();
-			return;
-		}
-		twitch.getOAuthToken(request.query.token).then((data) => {
+app.use((req, res, next) => {
+	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+	next();
+});
+
+app.get('/oauth', (req, res) => {
+	if(!req.query.token){
+		res.status(400).send("No token");
+		return;
+	}
+	twitch.getOAuthToken(req.query.token).then((data) => {
 			var token = {
 				token: data.data.access_token
 			}
-			res.statusCode = 200;
-			res.write(JSON.stringify(token));
-			res.end();
+			res.status(200).send(JSON.stringify(token));
 		}).catch((err) => {
 			console.error(err);
 		})
-	}
-}).listen(process.env.PORT || 3000, () => {
-	console.log("listening on 3000");
-});
+})
+
+app.listen(3000, () => {
+	console.log("Listening on",process.env.PORT || 3000)
+})
