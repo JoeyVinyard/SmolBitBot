@@ -28,13 +28,13 @@ var connectedChannels = {};
 var quotes = {};
 var regulars = {};
 
-console.log("Initializing firebase...");
-db.init(config.fbConfig);
-console.log("Finished\n");
+// console.log("Initializing firebase...");
+// db.init(config.fbConfig);
+// console.log("Finished\n");
 
-console.log("Initializing TMI...");
-client.connect();
-console.log("Finished\n");
+// console.log("Initializing TMI...");
+// client.connect();
+// console.log("Finished\n");
 
 client.on("connected", function(address, port){
 	console.log("Successfully conntected to Twitch IRC");
