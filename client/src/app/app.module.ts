@@ -13,6 +13,8 @@ import { TwitchService } from './services/twitch.service';
 
 import { ROUTES } from './app.routes';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { PermissionsComponent } from './dashboard/permissions/permissions.component';
+import { ChatSettingsComponent } from './dashboard/chat-settings/chat-settings.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     SplashComponent,
     NavbarComponent,
     ConnectedComponent,
-    DashboardComponent
+    DashboardComponent,
+    PermissionsComponent,
+    ChatSettingsComponent
   ],
   imports: [
     BrowserModule,

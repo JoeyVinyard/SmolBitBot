@@ -19,7 +19,14 @@ export class DashboardComponent implements OnInit {
 		edit: ""
 	}
 	permOptions = ["Viewer", "Regular", "Subscriber", "Moderator", "Broadcaster"];
+	tab = "perms";
 
+	isSelected(tab: string){
+		return tab==this.tab;
+	}
+	changeTab(tab: string){
+		this.tab = tab;
+	}
 	updateConfig(prop, val){
 		console.log(prop, val)
 	}

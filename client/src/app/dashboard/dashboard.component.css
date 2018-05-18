@@ -1,3 +1,7 @@
+.content-area{
+	display: inline-block;
+	float: left;
+}
 .column{
 	margin: 10px 20px 0px 10px !important;
 	padding-bottom: 10px;
@@ -6,8 +10,10 @@
 .dashboard{
 	border: 2px solid grey;
 	border-radius: 5px;
+	display: flex;
+	flex-direction: column;
 	margin: 30px 50px;
-	overflow: hidden;
+	min-height: 85vh;
 }
 .dashboard *{
 	margin: 0px;
@@ -38,6 +44,30 @@
 	font-size: 20px;
 	height: 34px;
 	margin-top: 4px !important;
+}
+.settings{
+	height: 100%;
+	flex-grow: 1;
+}
+.sidebar{
+	background-color: #E9E9E9;
+	border-right: 2px solid black;
+	display: inline-block;
+	float: left;
+	height: 100%;
+	width: 200px;
+}
+.sidebar-item{
+	background-color: #C9C9C9;
+	border-bottom: 2px solid black;
+	cursor: pointer;
+	font-size: 25px;
+	font-weight: 500;
+	padding: 10px 0px 10px 20px;
+	user-select: none;
+}
+.selected-item{
+	background-color: #898989;
 }
 .subTitle{
 	font-size: 24px;
